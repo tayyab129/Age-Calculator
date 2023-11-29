@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Age Calculator</h1>
+        <div class="input_section">
+            <label for="dob">Enter Your Date Of Birth</label>
+            <input type="date" id="dob" max="9999-12-31">
+            <button onclick="calculateAge()">Calculate</button>
+        </div>
+
+        <div class="output_section"></div>
+        <p id="output"></p>
+    </div>
+    <script>
+        function calculateAge() {
+            const dob = new Date(document.getElementById('dob').value);
+            const today = new Date();
+            const ageLimit = 120;
+
+            if (isNaN(dob.getTime())) {
+                document.getElementById('output').innerHTML = "Please enter a valid date.";
+                return;
+            }
+            let age = today.getFullYear() - dob.getFullYear();
+            const monthDifference = today.getMonth() - dob.getMonth();
+
+            if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+
+            if (age > ageLimit) {
+                document.getElementById('output').innerHTML = "Error! Age cannot be greater than" + ageLimit + " years.";
+            } else {
+                document.getElementById('output').innerHTML = "You are " + age + " years old.";
+            }
+        }
+    </script>
+
+</body>
+
+</html>
